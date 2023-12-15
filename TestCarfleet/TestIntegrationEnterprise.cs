@@ -38,8 +38,8 @@ namespace Carfleet
         public void Setup()
         {
             _vehicule = new Vehicle(_registration, _brand, _model, _chassisNumber);
-            _driver = new Driver(_driverName,_firstname, _driverPhonenumber, _driverEmailaddress);
-            _entreprise = new Entreprise(_enterpriseName, _street, _city, _enterprisePhonenumber, _enterpriseEmailaddress);
+            _driver = new Driver(_driverName,_firstname, _driverPhonenumber, _driverEmailaddress, _workZone);
+            _enterprise = new Enterprise(_enterpriseName, _street, _city, _enterprisePhonenumber, _enterpriseEmailaddress);
         }
 
         [Test]
@@ -60,7 +60,7 @@ namespace Carfleet
             //given
 
             //when
-            _enterprise.Add(__driver);
+            _enterprise.Add(_driver);
 
             //then
             Assert.AreEqual(_driverName, _enterprise.GetDriverByEmailaddress(_driverEmailaddress).Name);
@@ -70,11 +70,11 @@ namespace Carfleet
         public void AssignVehicleToDriver_NominalCase_AssignationSuccessfull()
         {
             //given
-            _entreprise.Add(_vehicule);
-            _entreprise.Add(_driver);
+            _enterprise.Add(_vehicule);
+            _enterprise.Add(_driver);
 
             //when
-            _entreprise.AssignVehicleToDriver(_chassisNumber, _emailaddress);
+            _enterprise.AssignVehicleToDriver(_chassisNumber, _driverEmailaddress);
 
             //then
             Assert.AreEqual(_registration, _enterprise.GetDriverByEmailaddress(_driverEmailaddress).Vehicle.Registration);
